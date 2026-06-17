@@ -1,0 +1,33 @@
+
+---
+
+- hosts: webserver
+
+  become: yes
+
+  tasks:
+
+    - name: Pull latest image
+
+      shell: docker pull kurukuntlacharan9170/poc-7:latest
+
+    - name: Stop old container
+
+      shell: docker stop poc-7 || true
+
+    - name: Remove old container
+
+      shell: docker rm poc-7 || true
+
+    - name: Run new container
+
+      shell: |
+
+        docker run -d \
+
+        --name poc-7 \
+
+        -p 80:5000 \
+
+        kurukuntlacharan9170/poc-7:latest
+ 
